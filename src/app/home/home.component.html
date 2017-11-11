@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="alert alert-danger text-center" *ngIf="errorMessage">{{errorMessage}}</div>
+  <form [formGroup]="form" (submit)="search(form.controls.searchKeyField.value,form.controls.userIdField.value)" novalidate>
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="form-group" [ngClass]="{'has-error':form.controls.searchKeyField.touched && !form.controls.searchKeyField.valid}">
+          <label class="control-label" for="searchKey">Search Key*</label>
+          <input type="text" class="form-control" formControlName="searchKeyField" ngDefaultControl>
+
+
+        </div>
+        <div *ngIf="form.controls.searchKeyField.touched && !form.controls.searchKeyField.valid">
+          <p class="text-danger">
+            Search key is required
+          </p>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="">User Id(optional)</label>
+          <input type="text" class="form-control" formControlName="userIdField">
+        </div>
+      </div>
+    </div>
+    <div class="row text-center">
+      <button type="submit" class="btn btn-lg btn-primary" [disabled]='!form.valid'>Search</button>
+    </div>
+  </form>
+</div>
