@@ -31,6 +31,13 @@
   </form>
 
   <loader-bar *ngIf="isLoading"></loader-bar>
+  <div class="row text-center">
+
+    <button (click)="sort('views')" class="btn btn-info">sort by views</button>
+    <button (click)="sort('dateupload')" class="btn btn-info">sort by date of upload</button>
+    <button (click)="sort('datetaken')" class="btn btn-info">sort by date of taken</button>
+    <button (click)="sort('searchkey')" class="btn btn-info">sort by tags</button>
+  </div>
 
   <div class="row search-result" *ngIf="photos.length > 0">
     <div class="col-md-3 item" (click)="view(item['searchkey'],searchKey)" *ngFor="let item of photos">

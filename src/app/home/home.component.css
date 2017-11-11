@@ -5,4 +5,6 @@
 .search-result .item{
     cursor: pointer;
 }
-
+.btn-primary{
+    margin-bottom:16px 
+}

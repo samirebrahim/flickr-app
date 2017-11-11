@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,8 @@ export class HomeComponent implements OnInit {
       this.errorMessage = this.homeservice.errorMessage;
       this.homeservice.errorMessage = null;
       if (!this.errorMessage) {
+
+        this.photos = _.sortBy(this.homeservice.photos, o => o['photo']['views'])
         this.form.reset();
 
       }
@@ -50,5 +53,14 @@ export class HomeComponent implements OnInit {
     }
     this.router.navigate(['photos'], { queryParams: queryParams })
   }
+  sort(key) {
+    if (key == 'searchkey') {
 
+      this.photos = _.sortBy(this.photos, o => o.searchkey)
+    }
+    else {
+      this.photos = _.sortBy(this.photos, o => o['photo'][key])
+    }
+    console.log(this.photos)
+  }
 }
