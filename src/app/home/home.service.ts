@@ -6,6 +6,8 @@ import * as Routes from '../common/constants/routes-config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import * as _ from 'lodash';
+
 @Injectable()
 export class HomeService {
   errorMessage = null;
@@ -31,16 +33,22 @@ export class HomeService {
       if (data['stat'] == 'ok') {
         let photo = [];
 
-        if (data['photos']['photo']) {
-          photo = data['photos']['photo'];
-          if (photo.length > 0) {
-            this.photos.push({ [searchKey]: photo[0] });
-            return photo;
+        photo = data['photos']['photo'];
+        if (photo.length > 0) {
+
+          const index = _.findIndex(this.photos, (obj: any) => {
+            return obj.searchkey === searchKey
+          })
+          if (index === -1) {
+            this.photos.push({ searchkey: searchKey, photo: photo[0] });
           }
-          else {
-            this.errorMessage = "no photos avaiable"
-          }
+          console.log(this.photos)
+          return photo;
         }
+        else {
+          this.errorMessage = "no photos avaiable"
+        }
+
       }
       else {
         this.errorMessage = data['message']

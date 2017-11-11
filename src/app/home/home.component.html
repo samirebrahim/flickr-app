@@ -29,4 +29,11 @@
       <button type="submit" class="btn btn-lg btn-primary" [disabled]='!form.valid'>Search</button>
     </div>
   </form>
+
+
+  <div class="row search-result" *ngIf="photos.length > 0">
+    <div class="col-md-3" *ngFor="let item of photos">
+      <img class="flicker-thump" src="{{item['photo']['url_q']}}" alt="">
+    </div>
+  </div>
 </div>

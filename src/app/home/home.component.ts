@@ -14,15 +14,15 @@ export class HomeComponent implements OnInit {
   /** the form reference */
   private form: FormGroup;
 
+  private photos = [];
   private errorMessage;
   constructor(private fb: FormBuilder, private homeservice: HomeService) { }
 
   ngOnInit() {
-
+    this.photos = this.homeservice.photos;
     this.form = this.fb.group({
       searchKeyField: [this.searchKey, Validators.required],
       userIdField: '',
-
 
     });
   }
@@ -32,11 +32,8 @@ export class HomeComponent implements OnInit {
       this.homeservice.errorMessage = null;
       if (!this.errorMessage) {
         this.form.reset();
-                console.log(respone)
 
       }
-      
-      
     })
   }
 
