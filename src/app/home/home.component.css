@@ -6,10 +6,3 @@
     cursor: pointer;
 }
 
-.flicker-thump {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 16px;
-    width: 70%;
-    border-radius: 8px;
-}

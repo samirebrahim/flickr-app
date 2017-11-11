@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,9 +17,9 @@ export class HomeComponent implements OnInit {
 
   private photos = [];
   private errorMessage;
-    private isLoading = false;
+  private isLoading = false;
 
-  constructor(private fb: FormBuilder, private homeservice: HomeService) { }
+  constructor(private router: Router, private fb: FormBuilder, private homeservice: HomeService) { }
 
   ngOnInit() {
     this.photos = this.homeservice.photos;
@@ -29,9 +30,10 @@ export class HomeComponent implements OnInit {
     });
   }
   search(searchKey, userId) {
-        this.isLoading = true;
+    this.searchKey = userId;
+    this.isLoading = true;
 
-    this.homeservice.search(searchKey, userId).subscribe(respone => {
+    this.homeservice.search(searchKey, userId, 1, 1).subscribe(respone => {
       this.isLoading = false;
       this.errorMessage = this.homeservice.errorMessage;
       this.homeservice.errorMessage = null;
@@ -40,6 +42,13 @@ export class HomeComponent implements OnInit {
 
       }
     })
+  }
+  view(searchkey, userId) {
+    let queryParams: any = { searchkey: searchkey }
+    if (userId) {
+      queryParams = { searchkey: searchkey, userId: userId };
+    }
+    this.router.navigate(['photos'], { queryParams: queryParams })
   }
 
 }

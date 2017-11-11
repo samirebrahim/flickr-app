@@ -4,7 +4,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as Routes from '../common/constants/routes-config';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 
@@ -12,22 +11,27 @@ import * as _ from 'lodash';
 export class HomeService {
   errorMessage = null;
   photos = [];
-  
+
   constructor(private http: HttpClient) { }
 
-  public search(searchKey, userId) {
+  public search(searchKey, userId, number_per_page, pageNum): Observable<Response> {
     let url: string;
     url = Routes.API_URLS.Flicker.GET
       .replace('{tags}', searchKey)
+      .replace('{number_per_page}', number_per_page)
+      .replace('{pageNum}', pageNum)
+
       .replace('{user_id_value}', userId);
     if (!userId) {
       url = Routes.API_URLS.Flicker.GET
         .replace('{tags}', searchKey)
+        .replace('{number_per_page}', number_per_page)
+        .replace('{pageNum}', pageNum)
+
         .replace('{user_id_value}', '')
 
         .replace('user_id=&', '')
     }
-    console.log(url)
 
     return this.http.get(url).map((response: Response) => {
       const data = response;
@@ -43,8 +47,7 @@ export class HomeService {
           if (index === -1) {
             this.photos.push({ searchkey: searchKey, photo: photo[0] });
           }
-          console.log(this.photos)
-          return photo;
+          return response;
         }
         else {
           this.errorMessage = "no photos avaiable"
@@ -54,12 +57,7 @@ export class HomeService {
       else {
         this.errorMessage = data['message']
       }
-    }).catch((error) => Observable.throw(this.getError(error)));
-
+    })
   }
-  public getError(error) {
-    console.log(error)
-    // let errorCode = error.json().operationError.code;
 
-  }
 }

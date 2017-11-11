@@ -30,12 +30,13 @@
     </div>
   </form>
 
-<loader-bar *ngIf="isLoading"></loader-bar>
+  <loader-bar *ngIf="isLoading"></loader-bar>
 
-  <div  class="row search-result" *ngIf="photos.length > 0">
-    <div class="col-md-3 item" *ngFor="let item of photos">
-      <p >tag: #{{item['searchkey']}}</p>
-      <img class="flicker-thump" src="{{item['photo']['url_q']}}" alt="">
+  <div class="row search-result" *ngIf="photos.length > 0">
+    <div class="col-md-3 item" (click)="view(item['searchkey'],searchKey)" *ngFor="let item of photos">
+      <p>tag: #{{item['searchkey']}}</p>
+      <image-loader [src]="item['photo']['url_q']"></image-loader>
+
       <p>owner name: {{item['photo']['ownername']}}</p>
       <p>uploaded: {{item['photo']['dateupload'] | date:'fullDate'}}</p>
       <p>taken: {{item['photo']['datetaken'] | date:'fullDate'}}</p>
