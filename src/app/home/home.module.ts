@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoaderBar } from '../loader/loader.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
   ],
   providers: [HomeService],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent, LoaderBar]
 })
 export class HomeModule { }

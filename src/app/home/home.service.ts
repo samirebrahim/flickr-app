@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 export class HomeService {
   errorMessage = null;
   photos = [];
+  
   constructor(private http: HttpClient) { }
 
   public search(searchKey, userId) {

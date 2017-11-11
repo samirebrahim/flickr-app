@@ -1,8 +1,15 @@
-.search-result{
+.search-result {
     margin: 24px 0;
+    text-align: center
 }
-.flicker-thump{
+.search-result .item{
+    cursor: pointer;
+}
+
+.flicker-thump {
     display: block;
     margin: 0 auto;
+    margin-bottom: 16px;
     width: 70%;
+    border-radius: 8px;
 }

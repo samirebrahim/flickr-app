@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
 
   private photos = [];
   private errorMessage;
+    private isLoading = false;
+
   constructor(private fb: FormBuilder, private homeservice: HomeService) { }
 
   ngOnInit() {
@@ -27,7 +29,10 @@ export class HomeComponent implements OnInit {
     });
   }
   search(searchKey, userId) {
+        this.isLoading = true;
+
     this.homeservice.search(searchKey, userId).subscribe(respone => {
+      this.isLoading = false;
       this.errorMessage = this.homeservice.errorMessage;
       this.homeservice.errorMessage = null;
       if (!this.errorMessage) {
